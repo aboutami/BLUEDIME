@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trademark Notice</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 100; /* Thinner font */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      min-height: 100vh;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+      flex-direction: column; /* Stack elements vertically */
+    }
+
+    .container {
+      max-width: 800px;
+      font-size: 0.9rem;
+      white-space: pre-wrap; /* Preserve formatting */
+      text-align: center; /* Center text in the container */
+      padding: 20px;
+    }
+
+    .logo {
+      width: 9%; /* Scale down logo to 50% of its original size */
+      max-width: 710px; /* Ensure the logo doesn't exceed the container's width */
+      margin-bottom: 30px; /* Add space between the logo and the text */
+    }
+
+    .content {
+      opacity: 0;
+      animation: fadeIn 2s ease-in forwards;
+    }
+
+    .word {
+      opacity: 0;
+      display: inline-block;
+      animation: fadeInWord 0.3s ease forwards;
+    }
+
+    b {
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes fadeInWord {
+      from { opacity: 0; transform: translateY(5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Add logo here, make sure to replace 'logo.png' with the correct image path -->
+    <img src="logo.png" alt="BLUE DIMENSION Logo" class="logo">
+
+    <div id="text" class="content"></div>
+  </div>
+
+  <script>
+    const text = `
+<b>BLUE DIMENSION</b> is a legally registered trademark. This includes, but is not limited to, all associated visual identities, logos, names, branding elements, digital assets, and intellectual property developed and used under this mark.
+
+Any unauthorized use, reproduction, imitation, or adaptation of any part of the BLUE DIMENSION identity whether for commercial, promotional, or personal purposes constitutes trademark infringement and will trigger immediate legal action.
+    `;
+
+    const container = document.getElementById('text');
+
+    // Split text into words
+    function splitTextIntoWords(text) {
+      return text.split(/\s+/).map(word => `<span class="word">${word}</span>`).join(' ');
+    }
+
+    const htmlText = splitTextIntoWords(text);
+
+    container.innerHTML = htmlText;
+
+    // Adjust animation timing for each word
+    const words = document.querySelectorAll('.word');
+    words.forEach((word, index) => {
+      word.style.animationDelay = `${index * 0.1}s`; // Faster delay for each word
+    });
+  </script>
+</body>
+</html>
+
