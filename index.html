@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Trademark Notice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
@@ -10,7 +12,7 @@
       background-color: #000;
       color: #fff;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 100; /* Thinner font */
+      font-weight: 100;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,26 +20,28 @@
       min-height: 100vh;
       line-height: 1.8;
       letter-spacing: 0.05em;
-      flex-direction: column; /* Stack elements vertically */
+      flex-direction: column;
     }
 
     .container {
       max-width: 800px;
+      width: 100%;
       font-size: 0.9rem;
-      white-space: pre-wrap; /* Preserve formatting */
-      text-align: center; /* Center text in the container */
+      text-align: center;
       padding: 20px;
+      box-sizing: border-box;
     }
 
     .logo {
-      width: 9%; /* Scale down logo to 50% of its original size */
-      max-width: 710px; /* Ensure the logo doesn't exceed the container's width */
-      margin-bottom: 30px; /* Add space between the logo and the text */
+      width: 9%;
+      max-width: 710px;
+      margin-bottom: 30px;
     }
 
     .content {
       opacity: 0;
       animation: fadeIn 2s ease-in forwards;
+      white-space: normal;
     }
 
     .word {
@@ -59,13 +63,30 @@
       from { opacity: 0; transform: translateY(5px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* Responsive for Mobile */
+    @media (max-width: 600px) {
+      .container {
+        max-width: 92%;
+        font-size: 0.9rem;
+        font-weight: 70; /* thinner font */
+        line-height: 1.9;
+        padding: 20px 10px;
+      }
+
+      .logo {
+        width: 20%;
+      }
+
+      .word {
+        white-space: normal;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Add logo here, make sure to replace 'logo.png' with the correct image path -->
     <img src="logo.png" alt="BLUE DIMENSION Logo" class="logo">
-
     <div id="text" class="content"></div>
   </div>
 
@@ -78,21 +99,17 @@ Any unauthorized use, reproduction, imitation, or adaptation of any part of the 
 
     const container = document.getElementById('text');
 
-    // Split text into words
     function splitTextIntoWords(text) {
       return text.split(/\s+/).map(word => `<span class="word">${word}</span>`).join(' ');
     }
 
     const htmlText = splitTextIntoWords(text);
-
     container.innerHTML = htmlText;
 
-    // Adjust animation timing for each word
     const words = document.querySelectorAll('.word');
     words.forEach((word, index) => {
-      word.style.animationDelay = `${index * 0.1}s`; // Faster delay for each word
+      word.style.animationDelay = `${index * 0.1}s`;
     });
   </script>
 </body>
 </html>
-
