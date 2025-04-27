@@ -6,29 +6,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Reset */
-    * {
-      box-sizing: border-box;
+    body {
       margin: 0;
       padding: 0;
-    }
-
-    body {
-      min-height: 100vh;
-      background: #000;
-      color: white;
-      font-family: 'Roboto', sans-serif;
-      overflow: hidden;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      background: #000;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
       position: relative;
-      text-align: center;
-      padding: 20px;
     }
 
-    /* Video background */
     .video-background {
       position: absolute;
       top: 0;
@@ -36,7 +28,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(60px);
+      filter: blur(30px); /* Reduced from 60px to 30px */
       z-index: -1;
     }
 
@@ -44,30 +36,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 300px;
+      height: 300px; /* Smaller base height */
       margin-bottom: 40px;
-      position: relative;
       z-index: 1;
     }
 
     .logo-piece {
       height: 100%;
-      max-height: 300px;
       opacity: 0;
       transition: transform 1.5s ease, opacity 1.5s ease;
     }
 
     .left {
-      transform: translateX(10px);
+      transform: translateX(0);
     }
 
     .right {
-      transform: translateX(-10px);
+      transform: translateX(0);
     }
 
     .middle {
-      opacity: 0;
       transform: translateX(0);
+      opacity: 0;
     }
 
     .logo.active .left {
@@ -93,12 +83,12 @@
     }
 
     .name {
-      font-size: 50px;
-      line-height: 1;
+      text-align: center;
+      font-size: 40px;
+      line-height: 1.2;
       opacity: 0;
       transition: opacity 1.5s ease;
       z-index: 1;
-      margin-bottom: 20px;
     }
 
     .name.visible {
@@ -107,27 +97,34 @@
 
     .name .blue {
       font-weight: 700;
-      letter-spacing: 8px;
+      letter-spacing: 6px;
     }
 
     .name .dimension {
       font-weight: 100;
-      letter-spacing: 8px;
+      letter-spacing: 6px;
     }
 
-    
+    .name .tm {
+      font-size: 16px;
+      vertical-align: middle;
+      margin-left: 4px;
+      position: relative;
+      top: -6px;
+    }
 
     .trademark-text {
       opacity: 0;
       white-space: normal;
       font-size: 1rem;
-      line-height: 1.8;
+      line-height: 1.6;
       text-align: center;
-      width: 90%;
-      max-width: 800px;
-      margin-top: 20px;
+      padding: 15px;
+      width: 80%;
+      max-width: 700px;
+      margin: 20px auto 0;
+      min-height: 200px;
       transition: opacity 2s ease-in;
-      min-height: 300px; /* Reserve space for the typing animation */
     }
 
     .word {
@@ -136,53 +133,45 @@
       animation: fadeInWord 0.3s ease forwards;
     }
 
-    b {
-      font-weight: 600;
-    }
-
     @keyframes fadeInWord {
       from { opacity: 0; transform: translateY(5px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* RESPONSIVE */
+    /* Responsive Adjustments */
     @media (max-width: 768px) {
       .logo {
-        height: 200px;
+        height: 220px;
         margin-bottom: 30px;
       }
 
-      .logo-piece {
-        max-height: 200px;
-      }
-
       .name {
-        font-size: 36px;
+        font-size: 30px;
       }
 
       .trademark-text {
-        font-size: 0.95rem;
-        min-height: 250px;
+        font-size: 0.9rem;
       }
     }
 
     @media (max-width: 480px) {
       .logo {
-        height: 150px;
+        height: 180px;
         margin-bottom: 20px;
       }
 
-      .logo-piece {
-        max-height: 150px;
+      .name {
+        font-size: 24px;
+        letter-spacing: 4px;
       }
 
-      .name {
-        font-size: 28px;
+      .name .tm {
+        font-size: 12px;
+        top: -4px;
       }
 
       .trademark-text {
-        font-size: 0.9rem;
-        min-height: 200px;
+        font-size: 0.8rem;
       }
     }
   </style>
@@ -204,10 +193,10 @@
 
 <!-- Logo Name -->
 <div class="name" id="name">
-  <span class="blue">BLUE</span><span class="dimension">DIMENSION™</span>
+  <span class="blue">BLUE</span><span class="dimension">DIMENSION</span><span class="tm">™</span>
 </div>
 
-<!-- Trademark Text Below the Logo -->
+<!-- Trademark Text -->
 <div class="trademark-text" id="trademark-text">
   <div id="text"></div>
 </div>
@@ -217,18 +206,6 @@
     const logo = document.getElementById('logo');
     const name = document.getElementById('name');
     const trademarkText = document.getElementById('trademark-text');
-
-    const paragraphText = `
-    <b>BLUE DIMENSION</b> is a legally registered trademark. This includes, but is not limited to, all associated visual identities, logos, names, branding elements, digital assets, and intellectual property developed and used under this mark.
-    Any unauthorized use, reproduction, imitation, or adaptation of any part of the BLUE DIMENSION identity whether for commercial, promotional, or personal purposes constitutes trademark infringement and will trigger immediate legal action.
-    `;
-
-    const container = document.getElementById('text');
-    container.innerHTML = splitTextIntoWords(paragraphText);
-    const words = document.querySelectorAll('.word');
-    words.forEach((word) => {
-      word.style.opacity = '0';
-    });
 
     setTimeout(() => {
       logo.classList.add('active');
@@ -246,9 +223,16 @@
   });
 
   function animateParagraphText() {
+    const text = `
+    <b>BLUE DIMENSION</b> is a legally registered trademark. This includes, but is not limited to, all associated visual identities, logos, names, branding elements, digital assets, and intellectual property developed and used under this mark.
+    Any unauthorized use, reproduction, imitation, or adaptation of any part of the BLUE DIMENSION identity whether for commercial, promotional, or personal purposes constitutes trademark infringement and will trigger immediate legal action.
+    `;
+
+    const container = document.getElementById('text');
+    container.innerHTML = splitTextIntoWords(text);
+
     const words = document.querySelectorAll('.word');
     words.forEach((word, index) => {
-      word.style.animation = `fadeInWord 0.3s ease forwards`;
       word.style.animationDelay = `${index * 0.1}s`;
     });
   }
