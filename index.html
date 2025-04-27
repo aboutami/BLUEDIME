@@ -2,46 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Trademark Notice</title>
+  <title>Blue Dimension Logo Animation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
-    body {
+    /* Reset */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background-color: #000;
-      color: #fff;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 100;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: left;
-      min-height: 100vh;
-      line-height: 1.8;
-      letter-spacing: 0.05em;
-      flex-direction: column;
     }
 
-    .container {
-      max-width: 800px;
-      width: 100%;
-      font-size: 0.9rem;
+    body {
+      min-height: 100vh;
+      background: #000;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
       text-align: center;
       padding: 20px;
-      box-sizing: border-box;
+    }
+
+    /* Video background */
+    .video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(60px);
+      z-index: -1;
     }
 
     .logo {
-      width: 9%;
-      max-width: 710px;
-      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
     }
 
-    .content {
+    .logo-piece {
+      height: 100%;
+      max-height: 300px;
       opacity: 0;
-      animation: fadeIn 2s ease-in forwards;
+      transition: transform 1.5s ease, opacity 1.5s ease;
+    }
+
+    .left {
+      transform: translateX(10px);
+    }
+
+    .right {
+      transform: translateX(-10px);
+    }
+
+    .middle {
+      opacity: 0;
+      transform: translateX(0);
+    }
+
+    .logo.active .left {
+      opacity: 1;
+      transform: translateX(20px);
+    }
+
+    .logo.active .right {
+      opacity: 1;
+      transform: translateX(-20px);
+    }
+
+    .logo.active.middle-done .left {
+      transform: translateX(-10px);
+    }
+
+    .logo.active.middle-done .right {
+      transform: translateX(10px);
+    }
+
+    .logo.active.middle-done .middle {
+      opacity: 1;
+    }
+
+    .name {
+      font-size: 50px;
+      line-height: 1;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+
+    .name.visible {
+      opacity: 1;
+    }
+
+    .name .blue {
+      font-weight: 700;
+      letter-spacing: 8px;
+    }
+
+    .name .dimension {
+      font-weight: 100;
+      letter-spacing: 8px;
+    }
+
+    
+
+    .trademark-text {
+      opacity: 0;
       white-space: normal;
+      font-size: 1rem;
+      line-height: 1.8;
+      text-align: center;
+      width: 90%;
+      max-width: 800px;
+      margin-top: 20px;
+      transition: opacity 2s ease-in;
+      min-height: 300px; /* Reserve space for the typing animation */
     }
 
     .word {
@@ -54,62 +140,123 @@
       font-weight: 600;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
     @keyframes fadeInWord {
       from { opacity: 0; transform: translateY(5px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Responsive for Mobile */
-    @media (max-width: 600px) {
-      .container {
-        max-width: 92%;
-        font-size: 0.9rem;
-        font-weight: 70; /* thinner font */
-        line-height: 1.9;
-        padding: 20px 10px;
-      }
-
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
       .logo {
-        width: 20%;
+        height: 200px;
+        margin-bottom: 30px;
       }
 
-      .word {
-        white-space: normal;
+      .logo-piece {
+        max-height: 200px;
+      }
+
+      .name {
+        font-size: 36px;
+      }
+
+      .trademark-text {
+        font-size: 0.95rem;
+        min-height: 250px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        height: 150px;
+        margin-bottom: 20px;
+      }
+
+      .logo-piece {
+        max-height: 150px;
+      }
+
+      .name {
+        font-size: 28px;
+      }
+
+      .trademark-text {
+        font-size: 0.9rem;
+        min-height: 200px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="lotgo.png" alt="BLUE DIMENSION Logo" class="logo">
-    <div id="text" class="content"></div>
-  </div>
 
-  <script>
-    const text = `
-<b>BLUE DIMENSION</b> is a legally registered trademark. This includes, but is not limited to, all associated visual identities, logos, names, branding elements, digital assets, and intellectual property developed and used under this mark.
+<!-- Video Background -->
+<video autoplay muted loop class="video-background">
+  <source src="video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-Any unauthorized use, reproduction, imitation, or adaptation of any part of the BLUE DIMENSION identity whether for commercial, promotional, or personal purposes constitutes trademark infringement and will trigger immediate legal action.
+<!-- Logo Section -->
+<div class="logo" id="logo">
+  <img src="left.png" class="logo-piece left" alt="Left part">
+  <img src="middle.png" class="logo-piece middle" alt="Middle part">
+  <img src="right.png" class="logo-piece right" alt="Right part">
+</div>
+
+<!-- Logo Name -->
+<div class="name" id="name">
+  <span class="blue">BLUE</span><span class="dimension">DIMENSION™</span>
+</div>
+
+<!-- Trademark Text Below the Logo -->
+<div class="trademark-text" id="trademark-text">
+  <div id="text"></div>
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    const logo = document.getElementById('logo');
+    const name = document.getElementById('name');
+    const trademarkText = document.getElementById('trademark-text');
+
+    const paragraphText = `
+    <b>BLUE DIMENSION</b> is a legally registered trademark. This includes, but is not limited to, all associated visual identities, logos, names, branding elements, digital assets, and intellectual property developed and used under this mark.
+    Any unauthorized use, reproduction, imitation, or adaptation of any part of the BLUE DIMENSION identity whether for commercial, promotional, or personal purposes constitutes trademark infringement and will trigger immediate legal action.
     `;
 
     const container = document.getElementById('text');
+    container.innerHTML = splitTextIntoWords(paragraphText);
+    const words = document.querySelectorAll('.word');
+    words.forEach((word) => {
+      word.style.opacity = '0';
+    });
 
-    function splitTextIntoWords(text) {
-      return text.split(/\s+/).map(word => `<span class="word">${word}</span>`).join(' ');
-    }
+    setTimeout(() => {
+      logo.classList.add('active');
+      setTimeout(() => {
+        logo.classList.add('middle-done');
+        setTimeout(() => {
+          name.classList.add('visible');
+          setTimeout(() => {
+            trademarkText.style.opacity = 1;
+            animateParagraphText();
+          }, 500);
+        }, 600);
+      }, 1500);
+    }, 300);
+  });
 
-    const htmlText = splitTextIntoWords(text);
-    container.innerHTML = htmlText;
-
+  function animateParagraphText() {
     const words = document.querySelectorAll('.word');
     words.forEach((word, index) => {
+      word.style.animation = `fadeInWord 0.3s ease forwards`;
       word.style.animationDelay = `${index * 0.1}s`;
     });
-  </script>
+  }
+
+  function splitTextIntoWords(text) {
+    return text.split(/\s+/).map(word => `<span class="word">${word}</span>`).join(' ');
+  }
+</script>
+
 </body>
 </html>
